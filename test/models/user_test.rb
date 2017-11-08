@@ -51,9 +51,13 @@ class UserTest < ActiveSupport::TestCase
     end
 
     test "email addresses should be saved as lower-case" do
-    mixed_case_email = "Foo@ExAMPle.CoM"
-    @user.email = mixed_case_email
-    @user.save
-    assert_equal mixed_case_email.downcase, @user.reload.email
-  end
+      mixed_case_email = "Foo@ExAMPle.CoM"
+      @user.email = mixed_case_email
+      @user.save
+      assert_equal mixed_case_email.downcase, @user.reload.email
+    end
+
+    test "authenticated? should return false for a user with nil digest" do
+      assert_not @user.authenticated?('')
+    end
 end
